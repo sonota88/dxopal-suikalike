@@ -1,0 +1,20 @@
+diff --git a/lib/dxopal/sprite/physics.rb b/lib/dxopal/sprite/physics.rb
+index d8127e3..9e79915 100644
+--- a/lib/dxopal/sprite/physics.rb
++++ b/lib/dxopal/sprite/physics.rb
+@@ -56,6 +56,15 @@ module DXOpal
+       `Matter.World.addBody(#{Sprite._matter_engine}.world, body)`
+     end
+ 
++    def remove_matter_body
++      Sprite._remove_matter_body(@_matter_body)
++    end
++
++    def self._remove_matter_body(body)
++      _matter_sprites.delete(`body.id`)
++      `Matter.World.remove(#{Sprite._matter_engine}.world, body, null)`
++    end
++
+     # Return true if `physical_body=` is ever called
+     def self.matter_enabled?
+       # Note: we cannot use `!!` here because @matter_engine may be a JS object,
